@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Pranab Currency Converter Pro is a free online currency converter. Search currencies by country, currency name or code, view exchange-rate history and save favourite currencies.">
-<meta name="keywords" content="currency converter, INR to USD, USD to INR, exchange rate, currency calculator, country currency search">
+<meta name="description" content="Pranab Currency Converter Pro offers a free currency converter and EMI calculator for home, personal and car loans.">
+<meta name="keywords" content="currency converter, EMI calculator, home loan EMI, personal loan EMI, car loan EMI, INR to USD, USD to INR">
 <meta name="author" content="Pranab Haldar">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#101827">
@@ -26,6 +26,16 @@ body.light{--bg:#f2f6fb;--panel:#fff;--panel2:#edf3f8;--text:#172235;--muted:#60
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.list{display:flex;flex-direction:column;gap:8px}.item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--input);font-size:13px}.item span{color:var(--muted)}.item button{border:0;background:transparent;color:var(--accent);cursor:pointer;font-size:16px}.empty{color:var(--muted);font-size:13px;padding:8px 0}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);cursor:pointer;font-size:12px}.tab.active{border-color:var(--accent);color:var(--accent)}
 footer{text-align:center;color:var(--muted);font-size:12px;line-height:2;margin-top:30px}footer a,.textlink{color:var(--accent);text-decoration:none}.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal.show{display:flex}.modalbox{max-width:620px;max-height:85vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:23px;width:100%}.modalbox h2{margin-top:0}.modalbox p{color:var(--muted);font-size:14px;line-height:1.7}.modalhead{display:flex;justify-content:space-between;align-items:center}.close{background:transparent;border:0;color:var(--text);font-size:24px;cursor:pointer}.hidden{display:none}
 @media(max-width:650px){.wrap{padding:17px 12px 35px}.top{align-items:flex-start}.top-actions{flex-direction:column;align-items:flex-end}.currency-grid{grid-template-columns:1fr 39px 1fr;gap:7px}.swap{width:37px;height:37px}.search,.currency-select{font-size:11px;padding:10px 7px}.currency-select{padding-right:0}.grid2{grid-template-columns:1fr}.brand b{font-size:14px}.brand small{font-size:11px}}
+
+.emi-card{max-width:800px;margin:20px auto;background:var(--panel);border:1px solid var(--line);border-radius:21px;padding:clamp(17px,4vw,27px);box-shadow:0 18px 45px var(--shadow)}
+.emi-card h2{font-size:20px;margin:0 0 8px}.emi-intro,.emi-note{color:var(--muted);font-size:13px;line-height:1.6}
+.emi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.emi-field label{display:block;color:var(--muted);font-size:13px;margin-bottom:7px}
+.emi-field input{width:100%;background:var(--input);border:1px solid var(--line);border-radius:11px;color:var(--text);padding:12px;font-size:15px}
+.emi-presets{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.emi-result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.emi-stat{background:var(--input);border:1px solid var(--line);border-radius:12px;padding:13px}.emi-stat small{display:block;color:var(--muted);font-size:11px}.emi-stat strong{display:block;color:var(--accent);font-size:clamp(17px,3vw,23px);margin-top:7px;overflow-wrap:anywhere}
+.emi-table-wrap{overflow-x:auto;margin-top:18px}.emi-table{width:100%;border-collapse:collapse;font-size:12px}.emi-table th,.emi-table td{padding:9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}.emi-table th:first-child,.emi-table td:first-child{text-align:left}
+@media(max-width:650px){.emi-grid{grid-template-columns:1fr}.emi-result-grid{grid-template-columns:1fr}.emi-stat{display:flex;justify-content:space-between;align-items:center;gap:10px}.emi-stat strong{margin:0}}
+
 </style>
 </head>
 <body>
@@ -54,6 +64,33 @@ footer{text-align:center;color:var(--muted);font-size:12px;line-height:2;margin-
  <div class="actions"><button class="secondary" id="copyBtn" data-i18n="copy">Copy result</button><button class="secondary" id="shareBtn" data-i18n="share">Share result</button><button class="secondary" id="favBtn" data-i18n="addFav">☆ Add pair to favourites</button></div>
 </main>
 <div class="ad">Advertisement space — keep ads clearly separate from the calculator</div>
+
+<section class="emi-card" id="emi-calculator">
+ <h2>EMI Calculator</h2>
+ <p class="emi-intro">Estimate monthly instalments for a home loan, personal loan, car loan or other fixed-rate loan.</p>
+ <div class="emi-presets">
+  <button class="secondary emi-preset" data-rate="8.5" data-years="20">Home Loan</button>
+  <button class="secondary emi-preset" data-rate="12" data-years="5">Personal Loan</button>
+  <button class="secondary emi-preset" data-rate="9.5" data-years="5">Car Loan</button>
+ </div>
+ <div class="emi-grid">
+  <div class="emi-field"><label for="emiAmount">Loan amount (₹)</label><input id="emiAmount" type="number" min="1" step="1000" value="1000000"></div>
+  <div class="emi-field"><label for="emiRate">Annual interest rate (%)</label><input id="emiRate" type="number" min="0" max="100" step="0.01" value="8.5"></div>
+  <div class="emi-field"><label for="emiYears">Loan duration (years)</label><input id="emiYears" type="number" min="0" max="100" step="1" value="20"></div>
+  <div class="emi-field"><label for="emiMonths">Additional months</label><input id="emiMonths" type="number" min="0" max="11" step="1" value="0"></div>
+ </div>
+ <button class="primary" id="calculateEmi" type="button">Calculate EMI</button>
+ <div class="emi-result-grid" aria-live="polite">
+  <div class="emi-stat"><small>Monthly EMI</small><strong id="emiMonthly">₹0.00</strong></div>
+  <div class="emi-stat"><small>Total interest</small><strong id="emiInterest">₹0.00</strong></div>
+  <div class="emi-stat"><small>Total payment</small><strong id="emiTotal">₹0.00</strong></div>
+ </div>
+ <p class="emi-note" id="emiMessage">Figures are estimates. Actual lender charges, fees and rounding may differ.</p>
+ <div class="emi-table-wrap"><h3 style="font-size:15px">First 12 months repayment breakdown</h3>
+ <table class="emi-table"><thead><tr><th>Month</th><th>EMI</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody id="emiSchedule"><tr><td colspan="5" style="text-align:left">Calculate EMI to view the schedule.</td></tr></tbody></table></div>
+</section>
+<div class="ad">Advertisement space — keep ads clearly separate from the EMI calculator</div>
+
 <div class="grid2">
  <section class="section">
   <div class="section-head"><h2 data-i18n="chartTitle">Currency history chart</h2><div class="tabs"><button class="tab active" data-days="7">7D</button><button class="tab" data-days="30">30D</button><button class="tab" data-days="90">90D</button></div></div>
@@ -126,6 +163,25 @@ catch(e){ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--muted
 document.querySelectorAll('[data-days]').forEach(b=>b.onclick=()=>drawHistoryChart(Number(b.dataset.days)));
 $('modalClose').onclick=()=>$('messageModal').classList.remove('show');
 syncSearch();renderHistory();renderFavs();convert();drawHistoryChart(7);
+
+function formatINR(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(value)}
+function calculateEMI(){
+ const p=Number($('emiAmount').value), rate=Number($('emiRate').value), years=Number($('emiYears').value), extra=Number($('emiMonths').value), n=Math.round(years*12+extra);
+ if(!Number.isFinite(p)||p<=0||!Number.isFinite(rate)||rate<0||rate>100||!Number.isFinite(n)||n<=0||extra<0||extra>11){
+  $('emiMessage').textContent='Enter a loan amount above zero, an interest rate from 0 to 100, and a valid duration.';return;
+ }
+ const r=rate/1200, emi=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1), total=emi*n;
+ $('emiMonthly').textContent=formatINR(emi);$('emiInterest').textContent=formatINR(total-p);$('emiTotal').textContent=formatINR(total);
+ $('emiMessage').textContent=`Loan term: ${n} months · Annual interest: ${rate.toFixed(2)}% · Reducing-balance estimate.`;
+ let balance=p, rows='';
+ for(let m=1;m<=Math.min(n,12);m++){const interest=balance*r, principal=Math.min(balance,emi-interest);balance=Math.max(0,balance-principal);rows+=`<tr><td>${m}</td><td>${formatINR(emi)}</td><td>${formatINR(principal)}</td><td>${formatINR(interest)}</td><td>${formatINR(balance)}</td></tr>`}
+ $('emiSchedule').innerHTML=rows;
+}
+$('calculateEmi').addEventListener('click',calculateEMI);
+document.querySelectorAll('.emi-preset').forEach(b=>b.addEventListener('click',()=>{$('emiRate').value=b.dataset.rate;$('emiYears').value=b.dataset.years;calculateEMI()}));
+['emiAmount','emiRate','emiYears','emiMonths'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='Enter')calculateEMI()}));
+calculateEMI();
+
 </script>
 </body>
 </html>
